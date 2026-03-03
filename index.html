@@ -69,8 +69,8 @@
     }
 
     .error__icon {
-      width: 150px;
-      height: 150px;
+      width: 106px;
+      height: 106px;
       fill: #d84141;
     }
 
@@ -96,8 +96,59 @@
 <body>
   <main class="main">
     <div class="error">
+      <svg class="error__icon" width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
 
-      <svg class="error__icon" fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.884 2.532c-.346-.654-1.422-.654-1.768 0l-9 17A.999.999 0 0 0 3 21h18a.998.998 0 0 0 .883-1.467L12.884 2.532zM13 18h-2v-2h2v2zm-2-4V9h2l.001 5H11z"/></svg>
+        <!-- Background -->
+        <circle cx="128" cy="128" r="110" fill="#2a1f3d"/>
+
+        <!-- Casino Chip -->
+        <circle cx="128" cy="128" r="95" fill="#c62828"/>
+        <circle cx="128" cy="128" r="65" fill="#ffffff"/>
+
+        <!-- Chip Decorative Marks -->
+        <g fill="#c62828">
+          <rect x="123" y="33" width="10" height="20" rx="2"/>
+          <rect x="123" y="203" width="10" height="20" rx="2"/>
+          <rect x="33" y="123" width="20" height="10" rx="2"/>
+          <rect x="203" y="123" width="20" height="10" rx="2"/>
+        </g>
+
+        <!-- Center Error Symbol -->
+        <circle cx="128" cy="128" r="30" fill="#c62828"/>
+        <rect x="124" y="108" width="8" height="30" rx="3" fill="#ffffff"/>
+        <circle cx="128" cy="148" r="4" fill="#ffffff"/>
+
+        <!-- Dice Around Icon -->
+
+        <!-- Top Left -->
+        <g transform="rotate(-15 55 55)">
+          <rect x="35" y="35" width="40" height="40" rx="8" fill="#ffffff" stroke="#cccccc" stroke-width="3"/>
+          <circle cx="55" cy="55" r="5" fill="#2a1f3d"/>
+        </g>
+
+        <!-- Top Right (FIXED ALIGNMENT) -->
+        <g transform="rotate(20 200 55)">
+          <rect x="180" y="35" width="40" height="40" rx="8" fill="#ffffff" stroke="#cccccc" stroke-width="3"/>
+          <!-- properly centered diagonal (2) -->
+          <circle cx="192" cy="47" r="4" fill="#2a1f3d"/>
+          <circle cx="208" cy="63" r="4" fill="#2a1f3d"/>
+        </g>
+
+        <!-- Bottom Left -->
+        <g transform="rotate(15 55 200)">
+          <rect x="35" y="180" width="40" height="40" rx="8" fill="#ffffff" stroke="#cccccc" stroke-width="3"/>
+          <circle cx="45" cy="190" r="4" fill="#2a1f3d"/>
+          <circle cx="65" cy="210" r="4" fill="#2a1f3d"/>
+        </g>
+
+        <!-- Bottom Right -->
+        <g transform="rotate(-20 200 200)">
+          <rect x="180" y="180" width="40" height="40" rx="8" fill="#ffffff" stroke="#cccccc" stroke-width="3"/>
+          <circle cx="200" cy="200" r="5" fill="#2a1f3d"/>
+        </g>
+
+      </svg>
+
       <p class="error__message">
         An unexpected error has occurred. Please try again later. If the issue persists, please contact support for further assistance.
       </p>
