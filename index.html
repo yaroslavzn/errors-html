@@ -62,19 +62,35 @@
       z-index: 1;
       background-color: #0d1535;
       border-radius: 12px;
-      padding: 30px;
+      padding: 30px 15px;
       box-shadow: 0 0 0 4px rgba(42, 59, 138, 0.45);
     }
 
     .error__message {
       font-size: 16px;
       line-height: 1.42;
+      margin: 0;
     }
 
     .error__icon {
       width: 106px;
       height: 106px;
       fill: #d84141;
+    }
+
+    .error-description-portal h3 {
+      margin-bottom: 25px;
+    }
+
+    .error-description-portal ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 25px;
+    }
+
+    .error-description-portal li:not(:last-of-type) {
+      margin-bottom: 8px;
     }
 
     @media (max-width: 560px) {
@@ -90,10 +106,55 @@
   </style>
 
   <script type="text/javascript">
-    const urlParams = new URLSearchParams(window.location.search);
-    const message = urlParams.get('message');
+    const prepareHtmlTemplate = ({ reason, rows }) => {
+      const headingElement = document.createElement('h3');
+      headingElement.textContent = reason;
 
-    console.error(`Hubtech error: ${message || 'Unknown error occurred'}`);
+      const listElement = document.createElement('ul');
+
+      rows.forEach(({ title, data }) => {
+        const listItem = document.createElement('li');
+        const heading = document.createElement('strong');
+        const value = document.createElement('span');
+        heading.textContent = `${title}: `;
+        value.textContent = data;
+        listItem.insertAdjacentElement('beforeend', heading);
+        listItem.insertAdjacentElement('beforeend', value);
+
+        listElement.insertAdjacentElement('beforeend', listItem);
+      })
+
+      return {
+        heading: headingElement,
+        list: listElement,
+      }
+    };
+
+    const renderHtmlTemplate = ({ heading, list }) => {
+      const parent = document.querySelector('.error-description-portal');
+
+      parent.insertAdjacentElement('afterbegin', list);
+      parent.insertAdjacentElement('afterbegin', heading);
+    };
+
+    const generateRowsData = (gameId, provider, token) => {
+      return [
+        { title: 'Provider', data: provider },
+        { title: 'Game ID', data: gameId },
+        { title: 'Token', data: token }
+      ];
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const reason = urlParams.get('reason') || 'Unexpected error';
+      const gameId = urlParams.get('gameId') || 'Unknown';
+      const provider = urlParams.get('provider') || 'Unknown';
+      const token = urlParams.get('token') || 'Unknown';
+      const rows = generateRowsData(gameId, provider, token);
+
+      renderHtmlTemplate(prepareHtmlTemplate({ reason, rows }));
+    });
   </script>
 </head>
 <body>
@@ -152,9 +213,13 @@
 
       </svg>
 
-      <p class="error__message">
-        An unexpected error has occurred. Please try again later. If the issue persists, please contact support for further assistance.
-      </p>
+      <div class="error-description">
+        <div class="error-description-portal"></div>
+
+        <p class="error__message">
+          Please, try and login again, and contact support with this screenshot if continues
+        </p>
+      </div>
     </div>
   </main>
 </body>
